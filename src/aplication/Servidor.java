@@ -8,13 +8,17 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class Servidor {
+	
+	static ArrayList<Integer> lstServidorFiles = new ArrayList<Integer>();
+
 	public static void main(String[] args) throws Exception {
         
-       try (ServerSocket welcomeSocket = new ServerSocket(10000)) {
+       try (ServerSocket socket_conexao_cliente = new ServerSocket(10000)) {
 		while (true) {
-            Socket connectionSocket = welcomeSocket.accept();
+            Socket connectionSocket = socket_conexao_cliente.accept();
             
             BufferedReader mensagem_vinda_cliente = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
             DataOutputStream resposta_para_cliente = new DataOutputStream(connectionSocket.getOutputStream());
@@ -29,12 +33,24 @@ public class Servidor {
     			DatagramPacket pkg = new DatagramPacket(b, b.length, addr,6001);
     			try (DatagramSocket ds = new DatagramSocket()) {
     				ds.send(pkg);//enviando pacote broadcast
+    				try (ServerSocket socket_conexao_resposta_servidor_arquivos = new ServerSocket(5000)) {
+						while(true) {
+							Socket conn_socket_servidor_arquivos = socket_conexao_resposta_servidor_arquivos.accept();
+							BufferedReader mensagem_vinda_servidor_arquivos = new BufferedReader(new InputStreamReader(conn_socket_servidor_arquivos.getInputStream()));
+							String resultado_busca_arquivo = mensagem_vinda_servidor_arquivos.readLine();
+							System.out.println(resultado_busca_arquivo);
+							System.out.println(conn_socket_servidor_arquivos.getInetAddress());
+							System.out.println(conn_socket_servidor_arquivos.getPort());
+							lstServidorFiles.add(conn_socket_servidor_arquivos.getPort());
+							break;
+						}
+					}
     			}
     		}
     		catch (Exception e) {
     			System.out.println("Nao foi possivel enviar a mensagem");
     		}
-            resposta_para_cliente.writeBytes("Aqui vai uma lista\n");
+            resposta_para_cliente.writeBytes("Aqui vai uma lista: " + lstServidorFiles.toString() + "\n");
         }
 	}
     }
