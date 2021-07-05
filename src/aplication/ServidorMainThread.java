@@ -43,8 +43,7 @@ public class ServidorMainThread extends Thread {
 			ds.send(pkg);
 			ds.close();
 			
-			TheadTime theadTime = new TheadTime(socketTemp);
-			theadTime.start();
+			socketTemp.setSoTimeout(10000);
 			
 			while(true) {
 				try {

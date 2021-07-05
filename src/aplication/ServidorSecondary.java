@@ -28,8 +28,8 @@ public class ServidorSecondary {
 				String data = new String(pkg.getData(), 0, pkg.getLength());
 				String[] textoSeparado = data.split(";");
 				
-				System.out.println("Pedido sobre informacão do arquivo: " + textoSeparado[0]);
-				System.out.println("Envio sobre a informacão na porta: " + textoSeparado[1]);
+				System.out.println("Pedido sobre informacao do arquivo: " + textoSeparado[0]);
+				System.out.println("Envio sobre a informacao na porta: " + textoSeparado[1]);
 				System.out.println("");
 				
 				Socket resposta_para_servidor = new Socket("localhost", Integer.parseInt(textoSeparado[1]));

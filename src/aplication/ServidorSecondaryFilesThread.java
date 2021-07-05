@@ -21,7 +21,7 @@ public class ServidorSecondaryFilesThread extends Thread {
 			String nomeArquivo = mensagem_vinda_cliente.readLine();
 			System.out.println("Enviando arquivo: " + nomeArquivo + "\n");
 			
-			resposta_para_cliente.writeBytes("Tome aqui amigão esse arquivo: " + nomeArquivo + '\n');
+			resposta_para_cliente.writeBytes("Tome aqui amigao esse arquivo: " + nomeArquivo + '\n');
 			
 		} catch (IOException e) {
 			e.printStackTrace();
