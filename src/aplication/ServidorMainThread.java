@@ -11,12 +11,12 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class ServidorTransfer extends Thread {
+public class ServidorMainThread extends Thread {
 	
 	Socket s;
-	ArrayList<Integer> lstServidorFiles = new ArrayList<Integer>();
+	ArrayList<String> lstServidorFiles = new ArrayList<String>();
 
-    public ServidorTransfer(Socket s) {
+    public ServidorMainThread(Socket s) {
         this.s = s;
     }
 	
@@ -24,11 +24,9 @@ public class ServidorTransfer extends Thread {
 		
 		try {
 			ServerSocket socketTemp = ServerSocketTemp();
-			System.out.println("Socket Temporario: " + socketTemp.getLocalPort());
+			System.out.println("Socket temporario criado na porta: " + socketTemp.getLocalPort());
 			
-			BufferedReader mensagem_vinda_cliente;
-			
-			mensagem_vinda_cliente = new BufferedReader(new InputStreamReader(s.getInputStream()));
+			BufferedReader mensagem_vinda_cliente = new BufferedReader(new InputStreamReader(s.getInputStream()));
 		
 			DataOutputStream resposta_para_cliente = new DataOutputStream(s.getOutputStream());
 			
@@ -50,19 +48,18 @@ public class ServidorTransfer extends Thread {
 			
 			while(true) {
 				try {
-					Socket conn_socket_servidor_arquivos =  socketTemp.accept();
+					Socket conn_socket_servidor_arquivos = socketTemp.accept();
 					BufferedReader mensagem_vinda_servidor_arquivos = new BufferedReader(new InputStreamReader(conn_socket_servidor_arquivos.getInputStream()));
-					String resultado_busca_arquivo = mensagem_vinda_servidor_arquivos.readLine();
+					String resultado = mensagem_vinda_servidor_arquivos.readLine();
 					
-					if(resultado_busca_arquivo.contains("ACHEI"));
-						lstServidorFiles.add(conn_socket_servidor_arquivos.getPort());
+					lstServidorFiles.add(resultado);
 				
 				} 
 				catch (IOException e) {
 					break;
 				}
 			}
-			resposta_para_cliente.writeBytes("Servidores: " + lstServidorFiles.toString()+'\n');
+			resposta_para_cliente.writeBytes(lstServidorFiles.toString()+'\n');
 		}	
 		catch(IOException ex) {
             System.err.println(ex);
@@ -75,7 +72,7 @@ public class ServidorTransfer extends Thread {
 		ServerSocket server = null;
 		
 		while (server == null) {
-			for (int port = 20000; port < 50000; port++) {
+			for (int port = 20000; port < 35000; port++) {
 				try {
 					server = new ServerSocket(port);
 		            break;
