@@ -9,9 +9,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Cliente {
+	
+	static String ipServidor = "138.255.198.71";
+	static int portaServidor = 10000;
+	
 	public static void main(String[] args) throws IOException{
         
-        Socket socketServidorMain = new Socket("localhost", 10000);
+        Socket socketServidorMain = new Socket(ipServidor, portaServidor);
         
         DataOutputStream solicitacao_para_servidor = new DataOutputStream(socketServidorMain.getOutputStream());
         BufferedReader mensagem_vinda_servidor = new BufferedReader(new InputStreamReader(socketServidorMain.getInputStream()));
@@ -32,7 +36,7 @@ public class Cliente {
         ArrayList<String> myList = new ArrayList<String>(Arrays.asList(lista_servers_arquivo.split(",")));
         
         String IP = myList.get(0).toString();
-        Socket socketServidorSecondary = new Socket(IP.split("/")[0], Integer.parseInt(IP.split(":")[1]));
+        Socket socketServidorSecondary = new Socket(IP.split(":")[0], Integer.parseInt(IP.split(":")[1]));
         
         DataOutputStream solicitacao_para_servidor_secondary = new DataOutputStream(socketServidorSecondary.getOutputStream());
         BufferedReader mensagem_vinda_servidor_secondary = new BufferedReader(new InputStreamReader(socketServidorSecondary.getInputStream()));
