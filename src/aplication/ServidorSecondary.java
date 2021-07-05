@@ -12,8 +12,8 @@ public class ServidorSecondary {
 	public static void main(String[] args) throws IOException{
 		
 		ServerSocket serverSocket = ServerSocketTemp();
-		ServidorSecondaryFiles servidorSecondaryThread = new ServidorSecondaryFiles(serverSocket);
-		servidorSecondaryThread.start();
+		ServidorSecondaryFiles servidorSecondaryFiles = new ServidorSecondaryFiles(serverSocket);
+		servidorSecondaryFiles.start();
 		
 		System.out.println("Socket para envio de arquivo iniciado: " + serverSocket.getLocalSocketAddress());
 		System.out.println("");

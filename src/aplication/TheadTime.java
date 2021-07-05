@@ -14,7 +14,7 @@ public class TheadTime extends Thread{
 	
 	public void run() {
 		try {
-			TimeUnit.SECONDS.sleep(5);
+			TimeUnit.SECONDS.sleep(10);
 			s.close();
 		} catch (InterruptedException e) {
 			e.printStackTrace();

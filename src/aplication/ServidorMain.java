@@ -10,8 +10,8 @@ public class ServidorMain {
 		try (ServerSocket socket_conexao_cliente = new ServerSocket(10000)) {
 			while (true) {
 				Socket socket = socket_conexao_cliente.accept();
-				ServidorMainThread servidorTransfer = new ServidorMainThread(socket);
-				servidorTransfer.start();
+				ServidorMainThread servidorMainThread = new ServidorMainThread(socket);
+				servidorMainThread.start();
 			}
 		}
     }
