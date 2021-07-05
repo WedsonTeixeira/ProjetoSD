@@ -15,7 +15,7 @@ public class Cliente {
         BufferedReader mensagem_vinda_servidor = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         BufferedReader entrada_usuario_cliente = new BufferedReader(new InputStreamReader(System.in));
         
-        System.out.println("Digite o nome arquivo: ");
+        System.out.print("Digite o nome arquivo: ");
 		String nome_arquivo = entrada_usuario_cliente.readLine();
 		solicitacao_para_servidor.writeBytes(nome_arquivo+'\n');
         
