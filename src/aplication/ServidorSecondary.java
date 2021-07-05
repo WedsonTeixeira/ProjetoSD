@@ -9,13 +9,16 @@ import java.net.Socket;
 
 public class ServidorSecondary {
 	
+	static String ipMaquina = "138.255.198.71";
+	static String ipServidor = "138.255.198.71";
+	
 	public static void main(String[] args) throws IOException{
 		
 		ServerSocket serverSocket = ServerSocketTemp();
 		ServidorSecondaryFiles servidorSecondaryFiles = new ServidorSecondaryFiles(serverSocket);
 		servidorSecondaryFiles.start();
-		
-		System.out.println("Socket para envio de arquivo iniciado: " + serverSocket.getLocalSocketAddress());
+			
+		System.out.println("Socket para envio de arquivo iniciado: " + ipMaquina + ":" + serverSocket.getLocalPort());
 		System.out.println("");
 		
 		while (true) {
@@ -32,11 +35,11 @@ public class ServidorSecondary {
 				System.out.println("Envio sobre a informacao na porta: " + textoSeparado[1]);
 				System.out.println("");
 				
-				Socket resposta_para_servidor = new Socket("localhost", Integer.parseInt(textoSeparado[1]));
+				Socket resposta_para_servidor = new Socket(ipServidor, Integer.parseInt(textoSeparado[1]));
 				
 				DataOutputStream envio_para_servidor = new DataOutputStream(resposta_para_servidor.getOutputStream());
 
-				envio_para_servidor.writeBytes(serverSocket.getLocalSocketAddress().toString());
+				envio_para_servidor.writeBytes(ipMaquina + ":" + serverSocket.getLocalPort());
 				
 				resposta_para_servidor.close();
 			}

@@ -19,7 +19,7 @@ public class ServidorMainThread extends Thread {
     public ServidorMainThread(Socket s) {
         this.s = s;
     }
-	
+
 	public void run() {
 		
 		try {

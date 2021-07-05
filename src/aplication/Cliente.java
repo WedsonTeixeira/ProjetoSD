@@ -27,11 +27,11 @@ public class Cliente {
         
         String lista_servers_arquivo = mensagem_vinda_servidor.readLine();
         System.out.println("Lista de servers com o arquivo: " + lista_servers_arquivo);
+        
         socketServidorMain.close();
         
         lista_servers_arquivo = lista_servers_arquivo.replace("[", "");
         lista_servers_arquivo = lista_servers_arquivo.replace("]", "");
-        
         
         ArrayList<String> myList = new ArrayList<String>(Arrays.asList(lista_servers_arquivo.split(",")));
         
