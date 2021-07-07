@@ -7,12 +7,19 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
-import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class TelaCliente extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -22,7 +29,9 @@ public class TelaCliente extends JFrame {
 			public void run() {
 				try {
 					TelaCliente frame = new TelaCliente();
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -34,28 +43,77 @@ public class TelaCliente extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaCliente() {
+		setForeground(Color.WHITE);
+		setBackground(Color.WHITE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 709, 433);
+		setBounds(100, 100, 625, 433);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnBuscar = new JButton("Buscar");
-		btnBuscar.setBounds(46, 73, 117, 25);
-		contentPane.add(btnBuscar);
+		
+		JLabel lblDigiteONome = new JLabel("Digite o nome do arquivo");
+		lblDigiteONome.setBounds(10, 13, 189, 19);
+		contentPane.add(lblDigiteONome);
 		
 		textField = new JTextField();
-		textField.setBounds(12, 42, 189, 19);
+		textField.setBounds(10, 42, 189, 19);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
-		JLabel lblDigiteONome = new JLabel("Digite o nome do arquivo");
-		lblDigiteONome.setBounds(18, 27, 189, 15);
-		contentPane.add(lblDigiteONome);
+		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.setBounds(10, 71, 80, 30);
+		contentPane.add(btnBuscar);
 		
-		JList list = new JList();
-		list.setBounds(624, 345, -323, -317);
-		contentPane.add(list);
+		JButton btnNewButton = new JButton("Baixar");
+		btnNewButton.setBounds(119, 71, 80, 30);
+		btnNewButton.setEnabled(false);
+		contentPane.add(btnNewButton);
+		
+		table = new JTable();
+		table.setBackground(Color.LIGHT_GRAY);
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Nome da Maquina", "IP", "Porta",
+			}
+		));
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(252, 38, 315, 313);
+		scrollPane.setViewportView(table);
+		contentPane.add(scrollPane);		
+		
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(!textField.getText().isEmpty()) {
+					btnBuscar.setEnabled(false);
+					btnNewButton.setEnabled(false);
+					ClienteSend cliente = new ClienteSend(textField.getText(), table, btnNewButton, btnBuscar);
+					cliente.start();	
+				}
+				else{
+					JOptionPane.showMessageDialog(null,"Digite o nome de um arquivo!","Alerta",JOptionPane.WARNING_MESSAGE);
+				}
+				
+			}
+		});	
+		
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String ip = table.getValueAt(table.getSelectedRow(), 1).toString();
+				int porta= Integer.parseInt(table.getValueAt(table.getSelectedRow(), 2).toString());  
+				String nomeArquivo = textField.getText();
+				
+				btnBuscar.setEnabled(false);
+				btnNewButton.setEnabled(false);
+				
+				ClienteReceived clienteReceived = new ClienteReceived(ip, porta, nomeArquivo, btnNewButton, btnBuscar);
+				clienteReceived.start();
+			}
+		});	
 	}
 }

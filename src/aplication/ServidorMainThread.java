@@ -43,7 +43,7 @@ public class ServidorMainThread extends Thread {
 			ds.send(pkg);
 			ds.close();
 			
-			socketTemp.setSoTimeout(10000);
+			socketTemp.setSoTimeout(2000);
 			
 			while(true) {
 				try {
@@ -59,6 +59,7 @@ public class ServidorMainThread extends Thread {
 				}
 			}
 			resposta_para_cliente.writeBytes(lstServidorFiles.toString()+'\n');
+			socketTemp.close();
 		}	
 		catch(IOException ex) {
             System.err.println(ex);

@@ -9,8 +9,8 @@ import java.net.Socket;
 
 public class ServidorSecondary {
 	
-	static String ipMaquina = "138.255.198.71";
-	static String ipServidor = "138.255.198.71";
+	static String ipMaquina = "127.0.0.1";
+	static String ipServidor = "127.0.0.1";
 	
 	public static void main(String[] args) throws IOException{
 		
