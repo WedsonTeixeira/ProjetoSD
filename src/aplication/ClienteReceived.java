@@ -1,9 +1,10 @@
 package aplication;
 
-import java.io.BufferedReader;
+
 import java.io.DataOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.InputStream;
 import java.net.Socket;
 
 import javax.swing.JButton;
@@ -29,15 +30,24 @@ public class ClienteReceived extends Thread{
 		try {
 			Socket socketServidorSecondary = new Socket(ipMaquina, port);
 			DataOutputStream solicitacao_para_servidor_secondary = new DataOutputStream(socketServidorSecondary.getOutputStream());
-		    BufferedReader mensagem_vinda_servidor_secondary = new BufferedReader(new InputStreamReader(socketServidorSecondary.getInputStream()));
+			InputStream socketIn = socketServidorSecondary.getInputStream();
 		  
 		    solicitacao_para_servidor_secondary.writeBytes(nomeArquivo+'\n');
 		  
-		    String lista_secondary = mensagem_vinda_servidor_secondary.readLine();
-		    System.out.println(lista_secondary);
-		    socketServidorSecondary.close();
-		    btnNewButton.setEnabled(true);
-		    btnBuscar.setEnabled(true);
+		    FileOutputStream fileOut = new FileOutputStream("Recebido_"+nomeArquivo);
+
+			byte[] cbuffer = new byte[2048];
+			int bytesRead;
+			
+			while ((bytesRead = socketIn.read(cbuffer)) != -1) {
+				fileOut.write(cbuffer, 0, bytesRead);
+			}
+			fileOut.close();
+			socketServidorSecondary.close();
+			
+			btnNewButton.setEnabled(true);
+			btnBuscar.setEnabled(true);
+			
 		    
 		} catch (IOException e) {
 			e.printStackTrace();

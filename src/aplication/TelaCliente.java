@@ -72,7 +72,6 @@ public class TelaCliente extends JFrame {
 		contentPane.add(btnNewButton);
 		
 		table = new JTable();
-		table.setBackground(Color.LIGHT_GRAY);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
@@ -104,15 +103,21 @@ public class TelaCliente extends JFrame {
 		
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String ip = table.getValueAt(table.getSelectedRow(), 1).toString();
-				int porta= Integer.parseInt(table.getValueAt(table.getSelectedRow(), 2).toString());  
-				String nomeArquivo = textField.getText();
+				if(table.getSelectedRow() >= 0) {
+					String ip = table.getValueAt(table.getSelectedRow(), 1).toString();
+					int porta= Integer.parseInt(table.getValueAt(table.getSelectedRow(), 2).toString());  
+					String nomeArquivo = textField.getText();
+					
+					btnBuscar.setEnabled(false);
+					btnNewButton.setEnabled(false);
+					
+					ClienteReceived clienteReceived = new ClienteReceived(ip, porta, nomeArquivo, btnNewButton, btnBuscar);
+					clienteReceived.start();
+				}
+				else{
+					JOptionPane.showMessageDialog(null,"Selecione um servidor de arquivo da tabela!","Alerta",JOptionPane.WARNING_MESSAGE);
+				}
 				
-				btnBuscar.setEnabled(false);
-				btnNewButton.setEnabled(false);
-				
-				ClienteReceived clienteReceived = new ClienteReceived(ip, porta, nomeArquivo, btnNewButton, btnBuscar);
-				clienteReceived.start();
 			}
 		});	
 	}

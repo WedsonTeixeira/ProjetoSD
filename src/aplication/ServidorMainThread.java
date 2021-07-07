@@ -37,7 +37,7 @@ public class ServidorMainThread extends Thread {
 			byte[] b = nomeArquivoPort.getBytes();
 	
 			InetAddress addr = InetAddress.getByName("255.255.255.255");
-			DatagramPacket pkg = new DatagramPacket(b, b.length, addr,6001);
+			DatagramPacket pkg = new DatagramPacket(b, b.length, addr,1001);
 	
 			DatagramSocket ds = new DatagramSocket();
 			ds.send(pkg);

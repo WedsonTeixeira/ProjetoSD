@@ -55,9 +55,9 @@ public class ClienteSend extends Thread{
 	    			
 	    			ServidorTabelaInfo servidorTabelaInfo = new ServidorTabelaInfo();
 	    			
-	    			servidorTabelaInfo.nomeMaquina = "Maquina";
-	    			servidorTabelaInfo.ipMaquina = aux.split(":")[0];
-	    			servidorTabelaInfo.port = Integer.parseInt(aux.split(":")[1]);
+	    			servidorTabelaInfo.nomeMaquina = aux.split(":")[0];
+	    			servidorTabelaInfo.ipMaquina = aux.split(":")[1];
+	    			servidorTabelaInfo.port = Integer.parseInt(aux.split(":")[2]);
 
 	    			modeloTabela.addRow(servidorTabelaInfo);
 	    		}
