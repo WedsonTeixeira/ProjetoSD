@@ -1,12 +1,12 @@
-package aplication;
+package cliente;
 
-import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
+import java.util.ArrayList;
 
 public class ServidorTabela extends AbstractTableModel{
 	
-	ArrayList <ServidorTabelaInfo> Armazenar = new ArrayList <>();
-    String[] Colunas = {"Nome da Maquina", "IP", "Porta"};
+	ArrayList <Servidor> listaServidores = new ArrayList <>();
+    String[] Colunas = {"Nome do Servidor", "IP", "Porta", "Tamanho Arquivo"};
     
     @Override
     public String getColumnName(int column){
@@ -14,7 +14,7 @@ public class ServidorTabela extends AbstractTableModel{
     }
     @Override
     public int getRowCount() {
-        return Armazenar.size();
+        return listaServidores.size();
     }
 
     @Override
@@ -27,26 +27,26 @@ public class ServidorTabela extends AbstractTableModel{
         switch(Coluna)
         {
             case 0:
-                return Armazenar.get(Linha).getNomeMaquina();
+                return listaServidores.get(Linha).getNome();
             case 1:
-                return Armazenar.get(Linha).getIpMaquina();
+                return listaServidores.get(Linha).getIp();
             case 2:
-                return Armazenar.get(Linha).getPort();
+                return listaServidores.get(Linha).getPorta();
+            case 3:
+                return listaServidores.get(Linha).getTamanhoArquivo();
         }
         return null;
         
     }
     
-    public void addRow(ServidorTabelaInfo servidorTabelaInfo)
+    public void addRow(Servidor servidor)
     {
-        this.Armazenar.add(servidorTabelaInfo);
+        this.listaServidores.add(servidor);
         this.fireTableDataChanged();
     }
     
     public int arrayListSize()
     {
-       return this.Armazenar.size();
+       return this.listaServidores.size();
     }
 }
-
-
