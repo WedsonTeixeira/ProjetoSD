@@ -17,6 +17,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JProgressBar;
+import javax.swing.SwingConstants;
+import java.awt.Toolkit;
 
 /*
  * Visualizacao da tela do cliente
@@ -44,14 +46,15 @@ public class TelaCliente extends JFrame {
 	}
 
 	public TelaCliente() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaCliente.class.getResource("/cliente/sistemasdistribuidos.png")));
 		setResizable(false);
-		setTitle("Sistemas Distribuídos");
+		setTitle("SISTEMAS DISTRIBUIDOS");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 700, 400);
+		setBounds(100, 100, 708, 400);
 		setContentPane(contentPane);
 		
 		JLabel jLabel1 = new JLabel("Digite o nome do arquivo");
@@ -96,12 +99,13 @@ public class TelaCliente extends JFrame {
 		));
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(202, 42, 482, 313);
+		scrollPane.setBounds(202, 42, 482, 307);
 		scrollPane.setViewportView(jTable);
 		contentPane.add(scrollPane);		
 		
 		JLabel lblDevelopedByWedson = new JLabel("Developed by Wedson & Daniel");
-		lblDevelopedByWedson.setBounds(463, 355, 221, 15);
+		lblDevelopedByWedson.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblDevelopedByWedson.setBounds(463, 347, 221, 15);
 		contentPane.add(lblDevelopedByWedson);
 		
 		jButtonBuscar.addActionListener(new ActionListener() {
