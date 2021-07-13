@@ -40,8 +40,8 @@ public class ServidorSecundario {
 				String[] vetorRetornoServidor = retornoServidor.split(";");
 				
 				System.out.println("");
-				System.out.println("Informa��o sobre o arquivo: " + vetorRetornoServidor[0]);
-				System.out.println("Envio da informa��o na porta: " + vetorRetornoServidor[1]);
+				System.out.println("Informacao sobre o arquivo: " + vetorRetornoServidor[0]);
+				System.out.println("Envio da Informacao na porta: " + vetorRetornoServidor[1]);
 				
 				File f = new File(caminhoPastas + serverSocketTemporario.getLocalPort() + "/" + vetorRetornoServidor[0]);
 				

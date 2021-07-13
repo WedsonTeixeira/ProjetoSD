@@ -1,0 +1,9 @@
+Para iniciar o servidor principal:
+ProjetoSD -> servidorprincipal -> ServidorPrincipal.java
+
+Para iniciar o servidor secundario:
+ProjetoSD -> servidorsecundario -> ServidorSecundario.java
+OBS: A pasta para teste do primeiro servidor esta na pasta PathServers/35000 e assim por diante
+
+Para iniciar o cliente
+ProjetoSD -> cliente -> TelaCliente.java

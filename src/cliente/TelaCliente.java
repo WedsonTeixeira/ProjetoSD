@@ -19,7 +19,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JProgressBar;
 
 /*
- * Visualização da tela do cliente
+ * Visualizacao da tela do cliente
  * */
 
 public class TelaCliente extends JFrame {

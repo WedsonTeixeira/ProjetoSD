@@ -77,7 +77,7 @@ public class ThreadBuscar extends Thread{
 	    		}
 	        } else {
 	        	JLabel.setVisible(false);
-	        	JOptionPane.showMessageDialog(null, "Não foi possivel encontrar o arquivo", "Informe", JOptionPane.INFORMATION_MESSAGE);
+	        	JOptionPane.showMessageDialog(null, "Nao foi possivel encontrar o arquivo", "Informe", JOptionPane.INFORMATION_MESSAGE);
 	        }
 	        
 	        jTable.setModel(modeloTabela);

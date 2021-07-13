@@ -12,7 +12,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 /*
- * Thread que trata a conexão de cada cliente*/
+ * Thread que trata a conexao de cada cliente*/
 public class ServidorPrincipalThread extends Thread {
 	
 	Socket socket;
