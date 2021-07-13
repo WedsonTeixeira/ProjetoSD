@@ -1,5 +1,9 @@
 package cliente;
 
+/* Classe para representar uma linha na 
+ * tabela de servidores secundarios
+ * */
+
 public class Servidor {
 	
 	String nome;

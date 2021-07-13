@@ -11,6 +11,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+/*
+ * Thread que trata a conexão de cada cliente*/
 public class ServidorPrincipalThread extends Thread {
 	
 	Socket socket;
@@ -23,6 +25,7 @@ public class ServidorPrincipalThread extends Thread {
 	public void run() {
 		
 		try {
+			// Servidor temporario para receber a lista de servidores para cada cliente
 			ServerSocket serverSocketTemporario = ServerSocketTemporario();
 			
 			System.out.println("Socket temporario criado na porta: " + serverSocketTemporario.getLocalPort());
@@ -34,7 +37,8 @@ public class ServidorPrincipalThread extends Thread {
 			String nomeArquivoPorta = retornoCliente + ';' + serverSocketTemporario.getLocalPort();
 			
 			byte[] buffer = nomeArquivoPorta.getBytes();
-	
+			
+			// Mandando mensagem com o nome de arquivo para todos os servidores de arquivos
 			InetAddress inetAddress = InetAddress.getByName("255.255.255.255");
 			DatagramPacket datagramPacket = new DatagramPacket(buffer, buffer.length, inetAddress, 6000);
 			DatagramSocket datagramSocket = new DatagramSocket();
@@ -42,21 +46,25 @@ public class ServidorPrincipalThread extends Thread {
 			datagramSocket.send(datagramPacket);
 			datagramSocket.close();
 			
+			// Definindo tempo limite de espera por respostas
 			serverSocketTemporario.setSoTimeout(10000);
 			
 			while(true) {
 				try {
+					// Servidores de arquivo retornando respostas
 					Socket socketServidorSecundario = serverSocketTemporario.accept();
 					
 					BufferedReader bufferedReaderServidorSecundario = new BufferedReader(new InputStreamReader(socketServidorSecundario.getInputStream()));
 					String retornoServidorSecundario = bufferedReaderServidorSecundario.readLine();
 					
+					// Adicionando servidores que responderam a lista de servidores
 					listaServidores.add(retornoServidorSecundario);
 				} 
 				catch (IOException e) {
 					break;
 				}
 			}
+			// Retornando a lista de servidores de arquivos para o cliente
 			dataOutputStream.writeBytes(listaServidores.toString() + '\n');
 			
 			serverSocketTemporario.close();
@@ -66,7 +74,8 @@ public class ServidorPrincipalThread extends Thread {
 		}
 	}
 		
-
+	/* Metodo para encontrar porta disponivel para o socket temporario
+	 * Iniciando da porta 20000 */
 	private static ServerSocket ServerSocketTemporario() {
 		
 		ServerSocket serverSocket = null;

@@ -3,6 +3,8 @@ package servidorprincipal;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/*
+ * Classe para iniciar o servidor principal*/
 public class ServidorPrincipal {
 	
 	static int portaServidor = 10000;

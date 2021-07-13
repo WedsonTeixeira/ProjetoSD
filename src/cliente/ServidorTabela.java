@@ -3,6 +3,10 @@ package cliente;
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 
+/*
+ * Classe para representar a visualização da tabela
+ * */
+
 public class ServidorTabela extends AbstractTableModel{
 	
 	ArrayList <Servidor> listaServidores = new ArrayList <>();

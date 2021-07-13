@@ -18,6 +18,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JProgressBar;
 
+/*
+ * Visualização da tela do cliente
+ * */
+
 public class TelaCliente extends JFrame {
 
 	private JPanel contentPane;
@@ -45,7 +49,7 @@ public class TelaCliente extends JFrame {
 		contentPane.setLayout(null);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 608, 398);
+		setBounds(100, 100, 700, 400);
 		setContentPane(contentPane);
 		
 		JLabel jLabel1 = new JLabel("Digite o nome do arquivo");
@@ -53,7 +57,7 @@ public class TelaCliente extends JFrame {
 		contentPane.add(jLabel1);
 		
 		jTextField = new JTextField();
-		jTextField.setBounds(10, 42, 180, 25);
+		jTextField.setBounds(10, 42, 185, 25);
 		contentPane.add(jTextField);
 		
 		JLabel JLabel2 = new JLabel("Status do Download:");
@@ -67,19 +71,20 @@ public class TelaCliente extends JFrame {
 		contentPane.add(JLabel3);
 		
 		JProgressBar jProgressBar = new JProgressBar();
-		jProgressBar.setBounds(10, 179, 180, 25);
+		jProgressBar.setBounds(10, 179, 185, 25);
 		contentPane.add(jProgressBar);
 		
 		JButton jButtonBuscar = new JButton("Buscar");
-		jButtonBuscar.setBounds(10, 71, 80, 25);
+		jButtonBuscar.setBounds(10, 71, 90, 25);
 		contentPane.add(jButtonBuscar);
 		
 		JButton jButtonBaixar = new JButton("Baixar");
-		jButtonBaixar.setBounds(110, 71, 80, 25);
+		jButtonBaixar.setBounds(105, 71, 90, 25);
 		jButtonBaixar.setEnabled(false);
 		contentPane.add(jButtonBaixar);
 		
 		jTable = new JTable();
+		jTable.getTableHeader().setReorderingAllowed(false);
 		jTable.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
@@ -89,7 +94,7 @@ public class TelaCliente extends JFrame {
 		));
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(200, 41, 392, 313);
+		scrollPane.setBounds(202, 42, 482, 313);
 		scrollPane.setViewportView(jTable);
 		contentPane.add(scrollPane);		
 		
@@ -108,6 +113,7 @@ public class TelaCliente extends JFrame {
 					jButtonBuscar.setEnabled(false);
 					jButtonBaixar.setEnabled(false);
 					
+					// Criando a thread para o botao de busca de arquivo
 					ThreadBuscar threadBuscar = new ThreadBuscar(jTextField, JLabel3, jTable, jButtonBuscar, jButtonBaixar);
 					threadBuscar.start();	
 				}
@@ -124,6 +130,7 @@ public class TelaCliente extends JFrame {
 					jButtonBuscar.setEnabled(false);
 					jButtonBaixar.setEnabled(false);
 					
+					// Criando thread para o botao de baixar um arquivo
 					ThreadBaixar threadBaixar = new ThreadBaixar(jTextField, jTable, jButtonBuscar, jButtonBaixar, jProgressBar);
 					threadBaixar.start();
 				}

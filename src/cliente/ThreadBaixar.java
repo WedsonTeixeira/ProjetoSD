@@ -30,6 +30,8 @@ public class ThreadBaixar extends Thread{
 	public void run() {
 		
 		try {
+			/*Coletando dados de uma linha clicada na tabela 
+			 * de servidores com o arquivo encontrado*/
 			String ipServidor = jTable.getValueAt(jTable.getSelectedRow(), 1).toString();
 			int portaServidor = Integer.parseInt(jTable.getValueAt(jTable.getSelectedRow(), 2).toString());  
 			int tamanhoArquivo = Integer.parseInt(jTable.getValueAt(jTable.getSelectedRow(), 3).toString());
@@ -37,6 +39,7 @@ public class ThreadBaixar extends Thread{
 			jProgressBar.setMinimum(0);
 			jProgressBar.setMaximum(tamanhoArquivo);			
 			
+			// Socket para se conectar com o servidor de arquivos que possui o arquivo
 			Socket socket = new Socket(ipServidor, portaServidor);
 			
 			DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
@@ -50,6 +53,7 @@ public class ThreadBaixar extends Thread{
 			int bytesRead;
 			int bytesReadIncremento = 0;
 			
+			// Recebendo arquivo do servidor de arquivos em pacotes de 2048 bytes
 			while ((bytesRead = inputStream.read(buffer)) != -1) {
 				fileOut.write(buffer, 0, bytesRead);
 				fileOut.flush();
@@ -62,7 +66,7 @@ public class ThreadBaixar extends Thread{
 			socket.close();
 			
 			JOptionPane.showMessageDialog(null,"Arquivo Baixado com Sucesso","Sucesso",JOptionPane.INFORMATION_MESSAGE);
-			
+				
 			jProgressBar.setValue(0);
 			
 			jButtonBuscar.setEnabled(true);

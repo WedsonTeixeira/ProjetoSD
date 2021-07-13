@@ -12,6 +12,7 @@ import java.net.Socket;
 public class ServidorSecundarioEnvioThread extends Thread {
 	
 	Socket socket;
+	// Diretorio base para simular os varios servidores de arquivos
 	String path = "PathServers/";
 
     public ServidorSecundarioEnvioThread(Socket socket) {
@@ -20,6 +21,7 @@ public class ServidorSecundarioEnvioThread extends Thread {
     
     public void run() {
     	try {
+    		// Recebimento do nome do arquivo
 			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
 			
@@ -34,6 +36,7 @@ public class ServidorSecundarioEnvioThread extends Thread {
 			byte[] buffer = new byte[2048];
 			int tamanhoBuffer;
 
+			// Envio do arquivo do arquivo para o cliente em pacotes de 2048 bytes
 			while ((tamanhoBuffer = fileInputStream.read(buffer)) != -1) {
 				dataOutputStream.write(buffer, 0, tamanhoBuffer);
 				dataOutputStream.flush();

@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/*
+ * Thread responsavel por tratar cada envio de arquivo
+ * para o cliente a partir do servidor secundario */
 public class ServidorSecundarioEnvio extends Thread{
 	
 	ServerSocket serverSocket;

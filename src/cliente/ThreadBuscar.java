@@ -15,6 +15,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 public class ThreadBuscar extends Thread{
+	// IP local para testes
 	String IpServidor = "127.0.0.1";
 	int portaServidor = 10000;
 	
@@ -37,6 +38,7 @@ public class ThreadBuscar extends Thread{
 		try {
 			JLabel.setVisible(true);
 	
+			// Socket para se conectar com o servidor principal
 			Socket socket = new Socket(IpServidor, portaServidor);
 						
 			DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
@@ -48,12 +50,15 @@ public class ThreadBuscar extends Thread{
 		 
 		    socket.close();
 		    
+		    // String com o retorno com a lista de servidores que possui o arquivo
 		    retornoServidor = retornoServidor.replace("[", "").replace("]", "").replace(" ", "");
 	        	       
+		    // Intancia da tabela
 		    ServidorTabela modeloTabela = new ServidorTabela();
 		    
 	        if(!retornoServidor.isEmpty()) {
 	        	
+	        	// Adicionando os servidores de arquivo a visualizacao da tabela
 	        	ArrayList<String> listaServidores = new ArrayList<String>(Arrays.asList(retornoServidor.split(",")));
 	        	
 	    		for (int index = 0; index < listaServidores.size(); index++) {
@@ -70,6 +75,9 @@ public class ThreadBuscar extends Thread{
 
 	    			modeloTabela.addRow(servidor);
 	    		}
+	        } else {
+	        	JLabel.setVisible(false);
+	        	JOptionPane.showMessageDialog(null, "NÃ£o foi possivel encontrar o arquivo", "Informe", JOptionPane.INFORMATION_MESSAGE);
 	        }
 	        
 	        jTable.setModel(modeloTabela);
@@ -77,7 +85,8 @@ public class ThreadBuscar extends Thread{
 	        jButtonBaixar.setEnabled(true);
 	        	        
 		} catch (IOException erro) {
-			JOptionPane.showMessageDialog(null, "Não foi possivel se conectar ao servidor", "Alerta", JOptionPane.WARNING_MESSAGE);
+			JLabel.setVisible(false);
+			JOptionPane.showMessageDialog(null, "Erro ao se conectar com o servidor", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
 		
 		jButtonBuscar.setEnabled(true);
