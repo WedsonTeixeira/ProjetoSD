@@ -78,7 +78,6 @@ public class ServidorPrincipalThread extends Thread {
 		            break;
 		            }
 				catch (Exception erro) {
-					System.err.println(erro);
 				}
 			}
 		}

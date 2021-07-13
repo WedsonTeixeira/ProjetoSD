@@ -73,7 +73,6 @@ public class ServidorSecundario {
 		            break;
 		            }
 				catch (Exception erro) {
-					
 				}
 			}
 		}
