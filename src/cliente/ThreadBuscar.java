@@ -71,7 +71,7 @@ public class ThreadBuscar extends Thread{
 	    			servidor.nome = vetorListaServidores[0];
 	    			servidor.ip = vetorListaServidores[1];
 	    			servidor.porta = Integer.parseInt(vetorListaServidores[2]);
-	    			servidor.tamanhoArquivo = Integer.parseInt(vetorListaServidores[3]);
+	    			servidor.tamanhoArquivo = vetorListaServidores[3] + " " + "bytes";
 
 	    			modeloTabela.addRow(servidor);
 	    		}

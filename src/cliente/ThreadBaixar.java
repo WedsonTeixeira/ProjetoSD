@@ -34,7 +34,7 @@ public class ThreadBaixar extends Thread{
 			 * de servidores com o arquivo encontrado*/
 			String ipServidor = jTable.getValueAt(jTable.getSelectedRow(), 1).toString();
 			int portaServidor = Integer.parseInt(jTable.getValueAt(jTable.getSelectedRow(), 2).toString());  
-			int tamanhoArquivo = Integer.parseInt(jTable.getValueAt(jTable.getSelectedRow(), 3).toString());
+			int tamanhoArquivo = Integer.parseInt(jTable.getValueAt(jTable.getSelectedRow(), 3).toString().replace(" bytes", ""));
 			
 			jProgressBar.setMinimum(0);
 			jProgressBar.setMaximum(tamanhoArquivo);			

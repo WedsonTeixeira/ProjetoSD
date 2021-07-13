@@ -9,7 +9,7 @@ public class Servidor {
 	String nome;
 	String ip;
 	int porta;
-	int tamanhoArquivo;
+	String tamanhoArquivo;
     
 	public String getNome() {
 		return nome;
@@ -35,11 +35,11 @@ public class Servidor {
 		this.porta = porta;
 	}
 	
-	public int getTamanhoArquivo() {
+	public String getTamanhoArquivo() {
 		return tamanhoArquivo;
 	}
 
-	public void setTamanhoArquivo(int tamanhoArquivo) {
+	public void setTamanhoArquivo(String tamanhoArquivo) {
 		this.tamanhoArquivo = tamanhoArquivo;
 	}
 }
