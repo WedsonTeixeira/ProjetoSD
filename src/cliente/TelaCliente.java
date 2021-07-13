@@ -1,9 +1,12 @@
 package cliente;
 
 import java.awt.EventQueue;
+import java.awt.Image;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -42,31 +45,37 @@ public class TelaCliente extends JFrame {
 		contentPane.setLayout(null);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 625, 433);
+		setBounds(100, 100, 608, 398);
 		setContentPane(contentPane);
 		
 		JLabel jLabel1 = new JLabel("Digite o nome do arquivo");
-		jLabel1.setBounds(10, 13, 180, 19);
+		jLabel1.setBounds(10, 20, 180, 19);
 		contentPane.add(jLabel1);
 		
 		jTextField = new JTextField();
-		jTextField.setBounds(10, 42, 180, 19);
+		jTextField.setBounds(10, 42, 180, 25);
 		contentPane.add(jTextField);
 		
 		JLabel JLabel2 = new JLabel("Status do Download:");
 		JLabel2.setBounds(10, 156, 180, 13);
 		contentPane.add(JLabel2);
 		
+		JLabel JLabel3 = new JLabel("");
+		JLabel3.setVisible(false);
+		JLabel3.setIcon(new ImageIcon(new javax.swing.ImageIcon(getClass().getResource("vetor.gif")).getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
+		JLabel3.setBounds(86, 109, 25, 25);
+		contentPane.add(JLabel3);
+		
 		JProgressBar jProgressBar = new JProgressBar();
-		jProgressBar.setBounds(10, 179, 180, 30);
+		jProgressBar.setBounds(10, 179, 180, 25);
 		contentPane.add(jProgressBar);
 		
 		JButton jButtonBuscar = new JButton("Buscar");
-		jButtonBuscar.setBounds(10, 71, 80, 30);
+		jButtonBuscar.setBounds(10, 71, 80, 25);
 		contentPane.add(jButtonBuscar);
 		
 		JButton jButtonBaixar = new JButton("Baixar");
-		jButtonBaixar.setBounds(110, 71, 80, 30);
+		jButtonBaixar.setBounds(110, 71, 80, 25);
 		jButtonBaixar.setEnabled(false);
 		contentPane.add(jButtonBaixar);
 		
@@ -80,19 +89,26 @@ public class TelaCliente extends JFrame {
 		));
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(209, 38, 392, 313);
+		scrollPane.setBounds(200, 41, 392, 313);
 		scrollPane.setViewportView(jTable);
-		contentPane.add(scrollPane);	
-		
+		contentPane.add(scrollPane);		
 		
 		jButtonBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(!jTextField.getText().isEmpty()) {
 					
+					jTable.setModel(new DefaultTableModel(
+							new Object[][] {
+							},
+							new String[] {
+								"Nome da Maquina", "IP", "Porta", "Tamanho Arquivo",
+							}
+					));
+					
 					jButtonBuscar.setEnabled(false);
 					jButtonBaixar.setEnabled(false);
 					
-					ThreadBuscar threadBuscar = new ThreadBuscar(jTextField, jTable, jButtonBuscar, jButtonBaixar);
+					ThreadBuscar threadBuscar = new ThreadBuscar(jTextField, JLabel3, jTable, jButtonBuscar, jButtonBaixar);
 					threadBuscar.start();	
 				}
 				else{

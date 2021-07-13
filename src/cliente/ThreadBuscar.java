@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -18,12 +19,14 @@ public class ThreadBuscar extends Thread{
 	int portaServidor = 10000;
 	
 	JTextField jTextField;
+	JLabel JLabel;
 	JTable jTable;
 	JButton jButtonBuscar;
 	JButton jButtonBaixar;
 	
-	public ThreadBuscar(JTextField jTextField, JTable jTable, JButton jButtonBuscar, JButton jButtonBaixar) {
-		this.jTextField = jTextField;	
+	public ThreadBuscar(JTextField jTextField, JLabel JLabel, JTable jTable, JButton jButtonBuscar, JButton jButtonBaixar) {
+		this.jTextField = jTextField;
+		this.JLabel = JLabel; 
 		this.jTable = jTable;	
 		this.jButtonBuscar = jButtonBuscar;	
 		this.jButtonBaixar = jButtonBaixar;	
@@ -32,6 +35,8 @@ public class ThreadBuscar extends Thread{
 	public void run() {
 	
 		try {
+			JLabel.setVisible(true);
+	
 			Socket socket = new Socket(IpServidor, portaServidor);
 						
 			DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
@@ -76,5 +81,6 @@ public class ThreadBuscar extends Thread{
 		}
 		
 		jButtonBuscar.setEnabled(true);
+		JLabel.setVisible(false);
 	}
 } 

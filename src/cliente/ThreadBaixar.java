@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -59,6 +60,10 @@ public class ThreadBaixar extends Thread{
 			
 			fileOut.close();
 			socket.close();
+			
+			JOptionPane.showMessageDialog(null,"Arquivo Baixado com Sucesso","Sucesso",JOptionPane.INFORMATION_MESSAGE);
+			
+			jProgressBar.setValue(0);
 			
 			jButtonBuscar.setEnabled(true);
 			jButtonBaixar.setEnabled(true);
