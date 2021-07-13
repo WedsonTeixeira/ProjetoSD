@@ -44,6 +44,8 @@ public class TelaCliente extends JFrame {
 	}
 
 	public TelaCliente() {
+		setResizable(false);
+		setTitle("Sistemas Distribuídos");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
@@ -97,6 +99,10 @@ public class TelaCliente extends JFrame {
 		scrollPane.setBounds(202, 42, 482, 313);
 		scrollPane.setViewportView(jTable);
 		contentPane.add(scrollPane);		
+		
+		JLabel lblDevelopedByWedson = new JLabel("Developed by Wedson & Daniel");
+		lblDevelopedByWedson.setBounds(463, 355, 221, 15);
+		contentPane.add(lblDevelopedByWedson);
 		
 		jButtonBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
